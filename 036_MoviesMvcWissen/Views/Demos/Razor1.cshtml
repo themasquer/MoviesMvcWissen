@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Razor Demo";
+}
+
+<h2>Razor Demo</h2>
+
+<a href="~/Demos/Razor2">More Razor Demos</a>
+<hr />
+
+@{
+    int sayi = 17;
+    string ad = "Çağıl";
+}
+<span>@ad</span>
+<br />
+
+@{
+    string htmlText = "<b><i>Leo</b></i>";
+}
+<span>@Html.Raw(htmlText)</span>
+<br />
+
+@{
+    List<int> sayilar = new List<int>()
+    {
+        1, 2, 3, 4, 5
+    };
+}
+@foreach (var s in sayilar)
+{
+    <span>@s</span>
+    <br />
+}
+
+@if (true)
+{
+    string dogru = "doğru";
+    <span>@dogru</span>
+}
+else
+{
+    string yanlis = "yanlış";
+    <span>@yanlis</span>
+}
+<br />
+
+@{
+    @:Plain Text 1
+}
+<br />
+<text>Plain Text 2</text>
+<br />
+
+(80 + 60) / 2 = @((80 + 60) / 2)
+<br />
+
+cagil@leo.com
+<br />
+
+@@escaping at sign
+<br />
+
+@using (Html.BeginForm())
+{
+    <input type="text" value="" placeholder="Enter Input" />
+}
+
+@*
+    Multiline comment
+*@
+
+@(_036_MoviesMvcWissen.Controllers.NameUtil.GetName())
+<br />
+
+@{
+    Func<dynamic, object> boldDelegate = @<b>@item</b>;
+}
+@boldDelegate("Wissen")
+<br />
+
+@{
+    string title = "Bay";
+    string name = "Çağıl Alsaç";
+}
+Merhaba @title @name!
+<br />
+
+<style>
+    .boldItalic {
+        font-weight: bold;
+        font-style: italic;
+    }
+
+    .red {
+        color: red;
+    }
+</style>
+@{
+    string className = "boldItalic";
+}
+<div class="@className">Ankara</div>
+<div class="@className red">İstanbul</div>
+
+@{
+    int xPosition = 50;
+    int yPosition = 60;
+}
+<div data-xposition="@xPosition" data-yposition="@yPosition">X and Y data</div>
+
+@{
+    bool isChecked = true;
+}
+<input type="checkbox" checked="@isChecked" />&nbsp;Check Box
+<br />
+
+@*
+    Razor ile kolaylıkla tilda ile ~/Scripts/MyScript.js veya ~/Content/MyStyle.css gibi script veya style dosyalarına erişilebilir.
+*@

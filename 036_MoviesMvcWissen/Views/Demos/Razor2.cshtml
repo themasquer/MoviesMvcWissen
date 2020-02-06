@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "More Razor Demos";
+}
+
+<h2>More Razor Demos</h2>
+
+@{
+    var sayi1 = 7;
+    var sayi2 = 10;
+
+    var sayilar = new List<int>()
+    {
+        5, 10, 15, 20
+    };
+}
+
+<div>
+    @sayi1
+    <br />
+    @sayi2
+    <br />
+    @foreach (var s in sayilar)
+    {
+        @s
+        @:&nbsp;
+    }
+    <br />
+    @sayilar.Sum()
+    <br />
+    @{
+        <text>Çağıl Alsaç</text>
+        <br />
+        @:Çağıl Alsaç
+    }
+    <br />
+    @if (true)
+    {
+        var toplam = sayi1 + sayi2;
+        <span>@toplam</span>
+    }
+    <br />
+    Toplam: @(sayi1 + sayi2)
+    <br />
+    cagil@leo.com
+    <br />
+    cagil@(sayi1)
+</div>
+<style>
+    .red {
+        color: red;
+    }
+
+    .blue {
+        color: blue;
+    }
+</style>
+<div>
+    @{
+        string cssRed = "red";
+        string cssBlue = "blue";
+    }
+    @foreach (var s in sayilar)
+    {
+        if (s % 2 == 0)
+        {
+            <div class="@cssRed">@s</div>
+        }
+        else
+        {
+            <div class="@cssBlue">@s</div>
+        }
+    }
+</div>
