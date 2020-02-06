@@ -1,0 +1,29 @@
+﻿@model Movie
+
+@{
+    ViewBag.Title = "Delete Movie";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Delete", "Movies", FormMethod.Post))
+{
+    @*@Html.DisplayForModel()*@
+    @Html.HiddenFor(e => e.Id)
+    <div class="form-group">
+        <b>@Html.DisplayNameFor(e => e.Name): </b>
+        @Html.DisplayFor(e => e.Name)
+    </div>
+    <div class="form-group">
+        <b>@Html.LabelFor(e => e.BoxOfficeReturn): </b>
+        @Html.DisplayFor(e => e.BoxOfficeReturn)
+    </div>
+    <div class="form-group">
+        <b>@Html.DisplayNameFor(e => e.ProductionYear): </b>
+        @Html.DisplayFor(e => e.ProductionYear)
+    </div>
+
+    <button type="submit" class="btn btn-success">Yes</button>
+    @:&nbsp;
+    @Html.ActionLink("No", "Index", null, htmlAttributes: new { @class = "btn btn-danger" })
+}

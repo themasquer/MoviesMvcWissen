@@ -247,6 +247,8 @@
     <Content Include="Views\Movies\Add.cshtml" />
     <Content Include="Views\Demos\Razor1.cshtml" />
     <Content Include="Views\Demos\Razor2.cshtml" />
+    <Content Include="Views\Movies\Edit.cshtml" />
+    <Content Include="Views\Movies\Delete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

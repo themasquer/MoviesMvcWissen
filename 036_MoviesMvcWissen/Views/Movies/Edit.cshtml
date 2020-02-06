@@ -1,0 +1,36 @@
+﻿@model Movie
+
+@{
+    ViewBag.Title = "Edit Movie";
+    var years = ViewBag.Years as SelectList;
+}
+
+<h2>@ViewBag.Title</h2>
+
+@*@Html.BeginForm("Edit", "Movies", FormMethod.Post)
+{
+    
+}
+@{ 
+    Html.EndForm();
+}*@
+@using (Html.BeginForm("Edit", "Movies", FormMethod.Post))
+{
+    @Html.Hidden("Id", Model.Id)
+    @*<input type="hidden" name="Id" value="@Model.Id" />*@
+    <div class="form-group">
+        @Html.Label("tbName", "Name:")
+        @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "Enter movie name", id = "tbName" })
+    </div>
+    <div class="form-group">
+        @Html.Label("ddlProductionYear", "Production Year:")
+        @Html.DropDownList("ProductionYear", years, new { @class = "form-control", id = "ddlProductionYear" })
+    </div>
+    <div class="form-group">
+        @Html.Label("tbBoxOfficeReturn", "Box Office Return:")
+        @Html.TextBox("BoxOfficeReturn", Model.BoxOfficeReturn, new { @class = "form-control", placeholder = "Enter movie box office return", id = "tbBoxOfficeReturn" })
+    </div>
+    <input type="submit" class="btn btn-success" value="Save" />
+    @:&nbsp;
+    <input type="reset" class="btn btn-warning" value="Clear" />
+}
