@@ -1,12 +1,6 @@
 ﻿@model Movie
 
-@{
-    ViewBag.Title = "Delete Movie";
-}
-
-<h2>@ViewBag.Title</h2>
-
-@*<div class="row">
+<div class="row">
     <div class="col-md-2">
         <b>@Html.DisplayNameFor(e => e.Name): </b>
     </div>
@@ -29,14 +23,4 @@
     <div class="col-md-10">
         @Html.DisplayFor(e => e.ProductionYear)
     </div>
-</div>*@
-@Html.Partial("_Details", Model)
-
-<br />
-@using (Html.BeginForm("Delete", "Movies", FormMethod.Post))
-{
-    @Html.HiddenFor(e => e.Id)
-    <button type="submit" class="btn btn-success">Yes</button>
-    @:&nbsp;
-    @Html.ActionLink("No", "Index", null, htmlAttributes: new { @class = "btn btn-danger" })
-}
+</div>

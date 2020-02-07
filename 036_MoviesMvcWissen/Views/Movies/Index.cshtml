@@ -4,6 +4,11 @@
     ViewBag.Title = "Movies";
 }
 
+@*@Html.Action("Welcome")*@
+@{
+    Html.RenderAction("Welcome");
+}
+
 <h2>@ViewBag.Title</h2>
 
 <a href="~/Movies/Add">Add Movie</a>
@@ -18,9 +23,7 @@
 
 <table class="table">
     <tr>
-        <td>
-
-        </td>
+        <td></td>
         <td>
             <b>Name</b>
         </td>
@@ -35,8 +38,11 @@
     {
         <tr>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = movie.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = movie.Id })
+                @Html.ActionLink(" ", "Details", new { id = movie.Id }, new { @class = "fa fa-info text-warning" })
+                &nbsp;
+                @Html.ActionLink(" ", "Edit", new { id = movie.Id }, new { @class = "fa fa-pencil-square-o text-success" })
+                &nbsp;
+                @Html.ActionLink(" ", "Delete", new { id = movie.Id }, new { @class = "fa fa-trash text-danger" })
             </td>
             <td>
                 @movie.Name
