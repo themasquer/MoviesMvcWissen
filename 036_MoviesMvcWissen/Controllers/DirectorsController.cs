@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using _036_MoviesMvcWissen.Contexts;
 using _036_MoviesMvcWissen.Entities;
+using _036_MoviesMvcWissen.Validations.FluentValidation;
+using FluentValidation.Results;
 
 namespace _036_MoviesMvcWissen.Controllers
 {
@@ -64,6 +66,14 @@ namespace _036_MoviesMvcWissen.Controllers
             director.Retired = true;
             if (retired.Equals("false"))
                 director.Retired = false;
+            if (String.IsNullOrWhiteSpace(director.Name))
+                ModelState.AddModelError("Name", "Director Name is required!");
+            if (String.IsNullOrWhiteSpace(director.Surname))
+                ModelState.AddModelError("Surname", "Director Surname is required!");
+            if (director.Name.Length > 100)
+                ModelState.AddModelError("Name", "Director Name must be maximum 100 characters!");
+            if (director.Surname.Length > 100)
+                ModelState.AddModelError("Surname", "Director Surname must be maximum 100 characters!");
             if (ModelState.IsValid)
             {
                 db.Directors.Add(director);
@@ -96,12 +106,22 @@ namespace _036_MoviesMvcWissen.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Surname,Retired")] Director director)
         {
-            if (ModelState.IsValid)
+
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(director).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            DirectorValidator validator = new DirectorValidator();
+            ValidationResult result = validator.Validate(director);
+            if (result.IsValid)
             {
                 db.Entry(director).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(director);
         }
 

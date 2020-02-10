@@ -21,6 +21,16 @@
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
 
+            context.Database.ExecuteSqlCommand("delete from MovieDirectors");
+            context.Database.ExecuteSqlCommand("delete from Reviews");
+            context.Database.ExecuteSqlCommand("delete from Movies");
+            context.Database.ExecuteSqlCommand("delete from Directors");
+
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('MovieDirectors', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Reviews', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Movies', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Directors', RESEED, 0)");
+
             List<Movie> movieList = new List<Movie>
             {
                 new Movie { Id = 1, Name = "Avatar", ProductionYear = "2009", BoxOfficeReturn = 1000000.0000,
