@@ -11,6 +11,6 @@ namespace _036_MoviesMvcWissen.Models.ViewModels
     {
         public List<Movie> Movies { get; set; }
         public SelectList Years { get; set; }
-        public string YearId { get; set; }
+        public string YearId { get; set; } = "";
     }
 }

@@ -12,15 +12,15 @@
 
 @*@Html.BeginForm("Edit", "Movies", FormMethod.Post)
 {
-    
+
 }
-@{ 
+@{
     Html.EndForm();
 }*@
 @using (Html.BeginForm("Edit", "Movies", FormMethod.Post))
 {
-    @Html.Hidden("Id", Model.Id)
     @*<input type="hidden" name="Id" value="@Model.Id" />*@
+    @Html.Hidden("Id", Model.Id)
     <div class="form-group">
         @Html.Label("tbName", "Name:")
         @Html.TextBox("Name", Model.Name, new { @class = "form-control", placeholder = "Enter movie name", id = "tbName" })
@@ -43,7 +43,7 @@
     @Html.SaveButton()
 
     @:&nbsp;
-    
+
     @*<input type="reset" class="btn btn-warning" value="Clear" />*@
     @Html.Button("Clear", "btn btn-warning", "reset")
 }

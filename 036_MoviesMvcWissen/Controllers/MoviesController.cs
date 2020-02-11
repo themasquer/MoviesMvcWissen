@@ -19,21 +19,24 @@ namespace _036_MoviesMvcWissen.Controllers
         MoviesContext db = new MoviesContext();
 
         // GET: Movies
-        //public ViewResult Index()
-        public ViewResult Index(MoviesIndexViewModel moviesIndexViewModel)
+        //public ViewResult Index() // 1
+        public ViewResult Index(MoviesIndexViewModel moviesIndexViewModel) // 2
         {
-            //var model = db.Movies.ToList();
-            var model = GetList();
-            //ViewBag.count = model.Count;
-            ViewData["count"] = model.Count;
+            // 1
+            ////var model = db.Movies.ToList();
+            //var model = GetList();
+            ////ViewBag.count = model.Count;
+            //ViewData["count"] = model.Count;
+            //return View(model);
 
+            // 2
             var years = new List<SelectListItem>();
-            years.Add(new SelectListItem()
-            {
-                Value = "",
-                Text = "-- All --"
-            });
-            for (int i = DateTime.Now.Year; i >= 1950; i--)
+            //years.Add(new SelectListItem()
+            //{
+            //    Value = "",
+            //    Text = "-- All --"
+            //});
+            for (int i = DateTime.Now.Year; i >= 2000; i--)
             {
                 years.Add(new SelectListItem()
                 {
@@ -47,17 +50,13 @@ namespace _036_MoviesMvcWissen.Controllers
             }
             if (String.IsNullOrWhiteSpace(moviesIndexViewModel.YearId))
             {
-                moviesIndexViewModel.Movies = db.Movies.ToList();
+                moviesIndexViewModel.Movies = GetList();
             }
             else
             {
-                moviesIndexViewModel.Movies = db.Movies.Where(e => e.ProductionYear == moviesIndexViewModel.YearId).ToList();
+                moviesIndexViewModel.Movies = GetList().Where(e => e.ProductionYear == moviesIndexViewModel.YearId).ToList();
             }
             moviesIndexViewModel.Years = new SelectList(years, "Value", "Text", moviesIndexViewModel.YearId);
-
-
-            
-            //return View(model);
             return View(moviesIndexViewModel);
         }
 
