@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Create";
+
+    var movies = ViewBag.Movies as MultiSelectList;
 }
 
 <h2>Create</h2>
@@ -44,6 +46,11 @@
                 @*@Html.ValidationMessageFor(model => model.Retired, "", new { @class = "text-danger" })*@
             </div>
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ddlMovies", "Movies")
+        @Html.ListBox("movieIds", movies, new { @class = "form-control", id = "ddlMovies" })
     </div>
 
     <div class="form-group">

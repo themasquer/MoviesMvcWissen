@@ -11,7 +11,7 @@ namespace _036_MoviesMvcWissen.Validations.FluentValidation
     {
         public DirectorValidator()
         {
-            RuleFor(e => e.Name).NotEmpty().MaximumLength(50);
+            RuleFor(e => e.Name).NotEmpty().WithMessage("Director Name cannot be empty!").MaximumLength(50).WithMessage("Director Name must be maximum 50 characters!");
             RuleFor(e => e.Surname).NotEmpty().Length(3, 50);
         }
     }

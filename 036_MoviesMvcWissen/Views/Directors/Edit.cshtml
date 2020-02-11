@@ -2,6 +2,11 @@
 
 @{
     ViewBag.Title = "Edit";
+
+    var movies = ViewBag.Movies as MultiSelectList;
+
+    //Html.EnableUnobtrusiveJavaScript(false);
+    //Html.EnableClientValidation(false);
 }
 
 <h2>Edit</h2>
@@ -43,6 +48,11 @@
                 @*@Html.ValidationMessageFor(model => model.Retired, "", new { @class = "text-danger" })*@
             </div>
         </div>
+    </div>
+
+    <div class="form-group">
+        @Html.Label("ddlMovies", "Movies")
+        @Html.ListBox("movieIds", movies, new { @class = "form-control", id = "ddlMovies" })
     </div>
 
     <div class="form-group">

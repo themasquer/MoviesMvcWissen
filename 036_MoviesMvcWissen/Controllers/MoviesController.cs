@@ -1,6 +1,7 @@
 ﻿using _036_MoviesMvcWissen.Contexts;
 using _036_MoviesMvcWissen.Entities;
 using _036_MoviesMvcWissen.Models;
+using _036_MoviesMvcWissen.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -18,13 +19,46 @@ namespace _036_MoviesMvcWissen.Controllers
         MoviesContext db = new MoviesContext();
 
         // GET: Movies
-        public ViewResult Index()
+        //public ViewResult Index()
+        public ViewResult Index(MoviesIndexViewModel moviesIndexViewModel)
         {
             //var model = db.Movies.ToList();
             var model = GetList();
             //ViewBag.count = model.Count;
             ViewData["count"] = model.Count;
-            return View(model);
+
+            var years = new List<SelectListItem>();
+            years.Add(new SelectListItem()
+            {
+                Value = "",
+                Text = "-- All --"
+            });
+            for (int i = DateTime.Now.Year; i >= 1950; i--)
+            {
+                years.Add(new SelectListItem()
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString()
+                });
+            }
+            if (moviesIndexViewModel == null)
+            {
+                moviesIndexViewModel = new MoviesIndexViewModel();
+            }
+            if (String.IsNullOrWhiteSpace(moviesIndexViewModel.YearId))
+            {
+                moviesIndexViewModel.Movies = db.Movies.ToList();
+            }
+            else
+            {
+                moviesIndexViewModel.Movies = db.Movies.Where(e => e.ProductionYear == moviesIndexViewModel.YearId).ToList();
+            }
+            moviesIndexViewModel.Years = new SelectList(years, "Value", "Text", moviesIndexViewModel.YearId);
+
+
+            
+            //return View(model);
+            return View(moviesIndexViewModel);
         }
 
         [NonAction]

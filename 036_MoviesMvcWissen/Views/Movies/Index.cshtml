@@ -1,4 +1,7 @@
-﻿@model List<_036_MoviesMvcWissen.Entities.Movie>
+﻿@*@model List<_036_MoviesMvcWissen.Entities.Movie>*@
+@model _036_MoviesMvcWissen.Models.ViewModels.MoviesIndexViewModel
+
+@using _036_MoviesMvcWissen.Helpers
 
 @{
     ViewBag.Title = "Movies";
@@ -10,6 +13,25 @@
 }
 
 <h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+{
+    <table class="table">
+        <tr>
+            <td style="width:20%;">
+                Production Year:
+            </td>
+            <td>
+                @Html.DropDownList("YearId", Model.Years, new { @class = "form-control" })
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                @Html.Button("Search", "btn btn-primary", "submit")
+            </td>
+        </tr>
+    </table>
+}
 
 <a href="~/Movies/Add">Add Movie</a>
 <br />
@@ -34,7 +56,28 @@
             <b>Box Office Return</b>
         </td>
     </tr>
-    @foreach (var movie in Model)
+    @*@foreach (var movie in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(" ", "Details", new { id = movie.Id }, new { @class = "fa fa-info text-warning" })
+                &nbsp;
+                @Html.ActionLink(" ", "Edit", new { id = movie.Id }, new { @class = "fa fa-pencil-square-o text-success" })
+                &nbsp;
+                @Html.ActionLink(" ", "Delete", new { id = movie.Id }, new { @class = "fa fa-trash text-danger" })
+            </td>
+            <td>
+                @movie.Name
+            </td>
+            <td>
+                @movie.ProductionYear
+            </td>
+            <td>
+                @movie.BoxOfficeReturn
+            </td>
+        </tr>
+    }*@
+    @foreach (var movie in Model.Movies)
     {
         <tr>
             <td>

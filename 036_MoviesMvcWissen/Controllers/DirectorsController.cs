@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using _036_MoviesMvcWissen.Contexts;
 using _036_MoviesMvcWissen.Entities;
+using _036_MoviesMvcWissen.Models.ViewModels;
 using _036_MoviesMvcWissen.Validations.FluentValidation;
 using FluentValidation.Results;
 
@@ -20,7 +21,12 @@ namespace _036_MoviesMvcWissen.Controllers
         // GET: Directors
         public ActionResult Index()
         {
-            return View(db.Directors.ToList());
+            //return View(db.Directors.ToList());
+            var model = new DirectorsIndexViewModel()
+            {
+                Directors = db.Directors.ToList()
+            };
+            return View(model);
         }
 
         // GET: Directors/Details/5
@@ -41,6 +47,12 @@ namespace _036_MoviesMvcWissen.Controllers
         // GET: Directors/Create
         public ActionResult Create()
         {
+            var movies = db.Movies.Select(e => new SelectListItem()
+            {
+                Value = e.Id.ToString(),
+                Text = e.Name
+            }).ToList();
+            ViewBag.Movies = new MultiSelectList(movies, "Value", "Text");
             return View();
         }
 
@@ -56,6 +68,7 @@ namespace _036_MoviesMvcWissen.Controllers
         {
             var director = new Director()
             {
+                Id = 0,
                 //Name = Request.Form["Name"], // 1
                 //Surname = Request.Form["Surname"] // 1
                 Name = formCollection["Name"], // 2
@@ -63,6 +76,7 @@ namespace _036_MoviesMvcWissen.Controllers
             };
             //var retired = Request.Form["Retired"]; // 1
             var retired = formCollection["Retired"]; // 2
+            var movieIds = formCollection["movieIds"].Split(',');
             director.Retired = true;
             if (retired.Equals("false"))
                 director.Retired = false;
@@ -76,6 +90,11 @@ namespace _036_MoviesMvcWissen.Controllers
                 ModelState.AddModelError("Surname", "Director Surname must be maximum 100 characters!");
             if (ModelState.IsValid)
             {
+                director.MovieDirectors = movieIds.Select(e => new MovieDirector()
+                {
+                    MovieId = Convert.ToInt32(e),
+                    DirectorId = director.Id
+                }).ToList();
                 db.Directors.Add(director);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,6 +115,13 @@ namespace _036_MoviesMvcWissen.Controllers
             {
                 return HttpNotFound();
             }
+            var movies = db.Movies.Select(e => new SelectListItem()
+            {
+                Value = e.Id.ToString(),
+                Text = e.Name
+            }).ToList();
+            var movieIds = director.MovieDirectors.Select(e => e.MovieId).ToList();
+            ViewBag.Movies = new MultiSelectList(movies, "Value", "Text", movieIds);
             return View(director);
         }
 
@@ -104,9 +130,22 @@ namespace _036_MoviesMvcWissen.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Surname,Retired")] Director director)
+        public ActionResult Edit([Bind(Include = "Id,Name,Surname,Retired")] Director director, List<int> movieIds)
         {
-
+            var dbDirector = db.Directors.Find(director.Id);
+            dbDirector.Name = director.Name;
+            dbDirector.Surname = director.Surname;
+            dbDirector.Retired = director.Retired;
+            var dbMovieDirectors = db.MovieDirectors.Where(e => e.DirectorId == director.Id).ToList();
+            foreach (var dbMovieDirector in dbMovieDirectors)
+            {
+                db.MovieDirectors.Remove(dbMovieDirector);
+            }
+            dbDirector.MovieDirectors = movieIds.Select(e => new MovieDirector()
+            {
+                MovieId = e,
+                DirectorId = director.Id
+            }).ToList();
             //if (ModelState.IsValid)
             //{
             //    db.Entry(director).State = EntityState.Modified;
@@ -117,7 +156,7 @@ namespace _036_MoviesMvcWissen.Controllers
             ValidationResult result = validator.Validate(director);
             if (result.IsValid)
             {
-                db.Entry(director).State = EntityState.Modified;
+                db.Entry(dbDirector).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

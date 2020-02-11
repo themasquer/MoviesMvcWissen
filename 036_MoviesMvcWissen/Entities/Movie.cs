@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,7 @@ namespace _036_MoviesMvcWissen.Entities
 
         [Required]
         [StringLength(250)]
+        [DisplayName("Movie Name")]
         public string Name { get; set; }
 
         [StringLength(4)]
