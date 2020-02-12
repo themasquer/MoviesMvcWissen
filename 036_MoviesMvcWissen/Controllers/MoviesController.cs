@@ -36,7 +36,7 @@ namespace _036_MoviesMvcWissen.Controllers
             //    Value = "",
             //    Text = "-- All --"
             //});
-            for (int i = DateTime.Now.Year; i >= 2000; i--)
+            for (int i = DateTime.Now.Year; i >= 1950; i--)
             {
                 years.Add(new SelectListItem()
                 {
@@ -48,14 +48,26 @@ namespace _036_MoviesMvcWissen.Controllers
             {
                 moviesIndexViewModel = new MoviesIndexViewModel();
             }
-            if (String.IsNullOrWhiteSpace(moviesIndexViewModel.YearId))
+            var query = db.Movies.AsQueryable();
+            if (!String.IsNullOrWhiteSpace(moviesIndexViewModel.YearId))
             {
-                moviesIndexViewModel.Movies = GetList();
+                query = query.Where(e => e.ProductionYear == moviesIndexViewModel.YearId);
             }
-            else
+            if (!String.IsNullOrWhiteSpace(moviesIndexViewModel.Name))
             {
-                moviesIndexViewModel.Movies = GetList().Where(e => e.ProductionYear == moviesIndexViewModel.YearId).ToList();
+                query = query.Where(e => e.Name.ToLower().Contains(moviesIndexViewModel.Name.ToLower().Trim()));
             }
+            if (!String.IsNullOrWhiteSpace(moviesIndexViewModel.Min))
+            {
+                double minimum = Convert.ToDouble(moviesIndexViewModel.Min.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+                query = query.Where(e => e.BoxOfficeReturn >= minimum);
+            }
+            if (!String.IsNullOrWhiteSpace(moviesIndexViewModel.Max))
+            {
+                double maximum = Convert.ToDouble(moviesIndexViewModel.Max.Trim().Replace(",", "."), CultureInfo.InvariantCulture);
+                query = query.Where(e => e.BoxOfficeReturn <= maximum);
+            }
+            moviesIndexViewModel.Movies = query.ToList();
             moviesIndexViewModel.Years = new SelectList(years, "Value", "Text", moviesIndexViewModel.YearId);
             return View(moviesIndexViewModel);
         }
@@ -177,7 +189,7 @@ namespace _036_MoviesMvcWissen.Controllers
             var model = db.Movies.Find(id.Value);
             List<SelectListItem> years = new List<SelectListItem>();
             SelectListItem year;
-            for (int i = DateTime.Now.Year; i >= 2000; i--)
+            for (int i = DateTime.Now.Year; i >= 1950; i--)
             {
                 year = new SelectListItem() { Value = i.ToString(), Text = i.ToString() };
                 years.Add(year);

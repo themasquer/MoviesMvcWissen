@@ -127,7 +127,7 @@ namespace _036_MoviesMvcWissen.Controllers
         //}
         #endregion
 
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id) // 2
         {
             if (!id.HasValue)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -186,7 +186,7 @@ namespace _036_MoviesMvcWissen.Controllers
         //    return View(director);
         //}
         #endregion
-        public ActionResult Edit(DirectorsEditViewModel directorEditViewModel)
+        public ActionResult Edit(DirectorsEditViewModel directorEditViewModel) // 2
         {
             if (ModelState.IsValid)
             {

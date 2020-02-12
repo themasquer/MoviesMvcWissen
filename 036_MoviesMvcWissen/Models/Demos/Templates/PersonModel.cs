@@ -5,7 +5,7 @@ using System.Web;
 
 namespace _036_MoviesMvcWissen.Models.Demos.Templates
 {
-    public class Person
+    public class PersonModel
     {
         public int Id { get; set; }
         public string FullName { get; set; }

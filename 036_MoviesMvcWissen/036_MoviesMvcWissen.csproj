@@ -251,7 +251,7 @@
       <DependentUpon>202002050959369_MoviesV01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Demos\Templates\Person.cs" />
+    <Compile Include="Models\Demos\Templates\PersonModel.cs" />
     <Compile Include="Models\DirectorModel.cs" />
     <Compile Include="Models\ViewModels\DirectorsEditViewModel.cs" />
     <Compile Include="Models\ViewModels\DirectorsIndexViewModel.cs" />

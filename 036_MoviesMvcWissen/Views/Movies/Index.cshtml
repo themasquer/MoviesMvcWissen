@@ -22,17 +22,35 @@
 {
     <table style="width: 100%;">
         <tr>
-            <td style="width: 20%;">
+            <td style="width: 15%;">
                 Production Year:
             </td>
-            <td>
+            <td style="width: 35%;">
                 @*@Html.DropDownList("YearId", Model.Years, new { @class = "form-control" })*@
                 @Html.DropDownList("YearId", Model.Years, "-- All --", new { @class = "form-control" })
             </td>
+            <td style="width: 10%; padding-left: 20px;">
+                Name:
+            </td>
+            <td>
+                @Html.TextBox("Name", Model.Name, new { @class = "form-control" })
+            </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td style="width: 15%;">
+                Box Office Return:
+            </td>
+            <td colspan="3">
+                @Html.TextBox("Min", Model.Min)
+                &nbsp;-&nbsp;
+                @Html.TextBox("Max", Model.Max)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
                 @Html.Button("Search", "btn btn-primary", "submit")
+                &nbsp;
+                <a class="btn btn-secondary" href="@Url.RouteUrl("Default", new { controller = "Movies", action = "Index" })">Clear</a>
             </td>
         </tr>
     </table>
@@ -48,7 +66,9 @@
 @* 1 *@
 @*<span>@Model.Count records found.</span>*@
 @*<span>@ViewData["count"] records found.</span>*@
-<span>@ViewBag.count records found.</span>
+@*<span>@ViewBag.count records found.</span>*@
+@* 2 *@
+<span>@Model.Movies.Count records found.</span>
 
 <table class="table">
     <tr>
@@ -65,26 +85,26 @@
     </tr>
     @* 1 *@
     @*@foreach (var movie in Model)
-    {
-        <tr>
-            <td>
-                @Html.ActionLink(" ", "Details", new { id = movie.Id }, new { @class = "fa fa-info text-warning" })
-                &nbsp;
-                @Html.ActionLink(" ", "Edit", new { id = movie.Id }, new { @class = "fa fa-pencil-square-o text-success" })
-                &nbsp;
-                @Html.ActionLink(" ", "Delete", new { id = movie.Id }, new { @class = "fa fa-trash text-danger" })
-            </td>
-            <td>
-                @movie.Name
-            </td>
-            <td>
-                @movie.ProductionYear
-            </td>
-            <td>
-                @movie.BoxOfficeReturn
-            </td>
-        </tr>
-    }*@
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(" ", "Details", new { id = movie.Id }, new { @class = "fa fa-info text-warning" })
+                    &nbsp;
+                    @Html.ActionLink(" ", "Edit", new { id = movie.Id }, new { @class = "fa fa-pencil-square-o text-success" })
+                    &nbsp;
+                    @Html.ActionLink(" ", "Delete", new { id = movie.Id }, new { @class = "fa fa-trash text-danger" })
+                </td>
+                <td>
+                    @movie.Name
+                </td>
+                <td>
+                    @movie.ProductionYear
+                </td>
+                <td>
+                    @movie.BoxOfficeReturn
+                </td>
+            </tr>
+        }*@
     @* 2 *@
     @foreach (var movie in Model.Movies)
     {

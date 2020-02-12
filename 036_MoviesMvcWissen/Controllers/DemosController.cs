@@ -51,9 +51,9 @@ namespace _036_MoviesMvcWissen.Controllers
         #region Templates
         public ActionResult GetPeople()
         {
-            List<Person> people = new List<Person>()
+            List<PersonModel> people = new List<PersonModel>()
             {
-                new Person()
+                new PersonModel()
                 {
                     Id = 1,
                     FullName = "Çağıl Alsaç",
@@ -61,7 +61,7 @@ namespace _036_MoviesMvcWissen.Controllers
                     GraduatedFromUniversity = true,
                     BirthDate = DateTime.Parse("19.06.1980")
                 },
-                new Person()
+                new PersonModel()
                 {
                     Id = 2,
                     FullName = "Leo Alsaç",
@@ -76,8 +76,8 @@ namespace _036_MoviesMvcWissen.Controllers
 
         public ActionResult GetPersonDetails(int id)
         {
-            List<Person> people = Session["people"] as List<Person>;
-            Person person = people.SingleOrDefault(e => e.Id == id);
+            List<PersonModel> people = Session["people"] as List<PersonModel>;
+            PersonModel person = people.SingleOrDefault(e => e.Id == id);
             return View(person);
         }
         #endregion
