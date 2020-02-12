@@ -1,0 +1,49 @@
+﻿@model _036_MoviesMvcWissen.Models.Demos.Templates.Person
+
+@{
+    ViewBag.Title = "GetPersonDetails";
+}
+
+<h2>GetPersonDetails</h2>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GraduatedFromUniversity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GraduatedFromUniversity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdentityNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdentityNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BirthDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BirthDate, "Date")
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "GetPeople")
+</p>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _036_MoviesMvcWissen.Models.Demos.Templates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -44,6 +45,40 @@ namespace _036_MoviesMvcWissen.Controllers
             var name = Request.QueryString["name"];
             var surname = Request.QueryString["surname"];
             return name + " " + surname;
+        }
+        #endregion
+
+        #region Templates
+        public ActionResult GetPeople()
+        {
+            List<Person> people = new List<Person>()
+            {
+                new Person()
+                {
+                    Id = 1,
+                    FullName = "Çağıl Alsaç",
+                    IdentityNo = "123456",
+                    GraduatedFromUniversity = true,
+                    BirthDate = DateTime.Parse("19.06.1980")
+                },
+                new Person()
+                {
+                    Id = 2,
+                    FullName = "Leo Alsaç",
+                    IdentityNo = "654321",
+                    GraduatedFromUniversity = false,
+                    BirthDate = DateTime.Parse("25.05.2015")
+                }
+            };
+            Session["people"] = people;
+            return View(people);
+        }
+
+        public ActionResult GetPersonDetails(int id)
+        {
+            List<Person> people = Session["people"] as List<Person>;
+            Person person = people.SingleOrDefault(e => e.Id == id);
+            return View(person);
         }
         #endregion
     }

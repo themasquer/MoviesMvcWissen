@@ -33,11 +33,15 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-
                             @*<a class="nav-link" href="~/Movies/Index">Movies <span class="sr-only">(current)</span></a>*@
-                            <a class="nav-link" href="@Url.RouteUrl("Default", new { controller = "Movies", action = "Index" })">Movies</a>
-
+                            <a class="nav-link" href="@Url.RouteUrl("Default", new { controller = "Movies", action = "Index" })">Movies Index</a>
                         </li>
+
+                        @* Hüseyin *@
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.RouteUrl("Default", new { controller = "Movies", action = "List" })">Movie List (Hüseyin)</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="@Url.Action("Index", "Directors")">Directors</a>
                         </li>
@@ -50,6 +54,7 @@
                                 <a class="dropdown-item" href="~/Demos/Razor1">Razor</a>
                                 <a class="dropdown-item" href="~/Demos/FromRoute/8">Get Value from Route</a>
                                 <a class="dropdown-item" href="~/Demos/FromQueryString?name=Çağıl&surname=Alsaç">Get Value from QueryString</a>
+                                <a class="dropdown-item" href="~/Demos/GetPeople">Get People</a>
                             </div>
                         </li>
                     </ul>

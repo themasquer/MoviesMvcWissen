@@ -12,5 +12,11 @@ namespace _036_MoviesMvcWissen.Models.ViewModels
         public List<Movie> Movies { get; set; }
         public SelectList Years { get; set; }
         public string YearId { get; set; } = "";
+
+        // Hüseyin
+        public string Name { get; set; } = "";
+        public string Min { get; set; } = "";
+        public string Max { get; set; } = "";
+
     }
 }
