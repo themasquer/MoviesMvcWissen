@@ -51,26 +51,34 @@ namespace _036_MoviesMvcWissen.Controllers
         #region Templates
         public ActionResult GetPeople()
         {
-            List<PersonModel> people = new List<PersonModel>()
+            List<PersonModel> people;
+            if (Session["people"] == null)
             {
-                new PersonModel()
+                people = new List<PersonModel>()
                 {
-                    Id = 1,
-                    FullName = "Çağıl Alsaç",
-                    IdentityNo = "123456",
-                    GraduatedFromUniversity = true,
-                    BirthDate = DateTime.Parse("19.06.1980")
-                },
-                new PersonModel()
-                {
-                    Id = 2,
-                    FullName = "Leo Alsaç",
-                    IdentityNo = "654321",
-                    GraduatedFromUniversity = false,
-                    BirthDate = DateTime.Parse("25.05.2015")
-                }
-            };
-            Session["people"] = people;
+                    new PersonModel()
+                    {
+                        Id = 1,
+                        FullName = "Çağıl Alsaç",
+                        IdentityNo = "123456",
+                        GraduatedFromUniversity = true,
+                        BirthDate = DateTime.Parse("19.06.1980")
+                    },
+                    new PersonModel()
+                    {
+                        Id = 2,
+                        FullName = "Leo Alsaç",
+                        IdentityNo = "654321",
+                        GraduatedFromUniversity = false,
+                        BirthDate = DateTime.Parse("25.05.2015")
+                    }
+                };
+                Session["people"] = people;
+            }
+            else
+            {
+                people = Session["people"] as List<PersonModel>;
+            }
             return View(people);
         }
 
@@ -79,6 +87,21 @@ namespace _036_MoviesMvcWissen.Controllers
             List<PersonModel> people = Session["people"] as List<PersonModel>;
             PersonModel person = people.SingleOrDefault(e => e.Id == id);
             return View(person);
+        }
+
+        public ActionResult AddPerson()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddPerson(PersonModel personModel)
+        {
+            List<PersonModel> people = Session["people"] as List<PersonModel>;
+            personModel.Id = people.Max(e => e.Id) + 1;
+            people.Add(personModel);
+            Session["people"] = people;
+            return RedirectToAction("GetPeople");
         }
         #endregion
     }

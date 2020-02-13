@@ -1,4 +1,4 @@
-﻿@model _036_MoviesMvcWissen.Models.Demos.Templates.Person
+﻿@model _036_MoviesMvcWissen.Models.Demos.Templates.PersonModel
 
 @{
     ViewBag.Title = "GetPersonDetails";
@@ -39,6 +39,7 @@
         </dt>
 
         <dd>
+            @*@Html.DisplayFor(model => model.BirthDate)*@
             @Html.DisplayFor(model => model.BirthDate, "Date")
         </dd>
 

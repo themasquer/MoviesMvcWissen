@@ -1,4 +1,4 @@
-﻿@model IEnumerable<_036_MoviesMvcWissen.Models.Demos.Templates.Person>
+﻿@model IEnumerable<_036_MoviesMvcWissen.Models.Demos.Templates.PersonModel>
 
 @{
     ViewBag.Title = "GetPeople";
@@ -7,7 +7,7 @@
 <h2>GetPeople</h2>
 
 <p>
-    @Html.ActionLink("CreatePeople", "Demos")
+    @Html.ActionLink("Add Person", "AddPerson")
 </p>
 <table class="table">
     <tr>
@@ -26,24 +26,25 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GraduatedFromUniversity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdentityNo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.ActionLink("GetPersonDetails", "GetPersonDetails", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GraduatedFromUniversity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdentityNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDate)
+            </td>
+            <td>
+                @Html.ActionLink("GetPersonDetails", "GetPersonDetails", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
