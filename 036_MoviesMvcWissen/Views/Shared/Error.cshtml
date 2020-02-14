@@ -1,0 +1,16 @@
+﻿@model HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>Error</h2>
+<div>
+    @*@Model.Exception.Message*@
+    Ooppss! An error occured!
+</div>
+<hr />
+<div>
+    @*@Model.Exception.StackTrace*@
+</div>
+

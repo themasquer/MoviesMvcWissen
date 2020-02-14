@@ -1,0 +1,53 @@
+﻿@model _036_MoviesMvcWissen.Models.ViewModels.DemosGetPeopleAjaxViewModel
+
+@{
+    ViewBag.Title = "GetPeopleAjax";
+}
+
+<h2>GetPeopleAjax</h2>
+
+@using (Html.BeginForm("AddPersonAjax", "Demos", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>PersonModel</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonModel.FullName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonModel.FullName, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonModel.GraduatedFromUniversity, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.PersonModel.GraduatedFromUniversity)
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonModel.IdentityNo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonModel.IdentityNo, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PersonModel.BirthDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PersonModel.BirthDate, "Date")
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<hr />
+@Html.Partial("_PeopleList", Model.PeopleModel)

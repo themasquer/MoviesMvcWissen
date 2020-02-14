@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 
 namespace _036_MoviesMvcWissen.Controllers
 {
@@ -73,6 +74,7 @@ namespace _036_MoviesMvcWissen.Controllers
         }
 
         // Hüseyin
+        [OutputCache(Duration = 60, Location = OutputCacheLocation.ServerAndClient, NoStore = true, VaryByParam = "*")] // VaryByParam = "Name;Min;Max", VaryByParam = "none"
         public ActionResult List(MoviesIndexViewModel moviesIndexViewModel)
         {
             if (moviesIndexViewModel == null)
@@ -263,6 +265,7 @@ namespace _036_MoviesMvcWissen.Controllers
             return View(model);
         }
 
+        [ChildActionOnly]
         public ActionResult Welcome()
         {
             var result = "Welcome to Movies MVC";
