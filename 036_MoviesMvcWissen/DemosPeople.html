@@ -29,7 +29,7 @@
                         html += "</ul>";
                         $("#div_people").html(html);
                     },
-                    error: function (response_textstatus, response_jqxhr) {
+                    error: function (response_jqxhr, response_textstatus) {
                         alert("An error occured!");
                         console.log("TextStatus: " + response_textstatus + " - jqXHR: " + response_jqxhr.status);
                     }
