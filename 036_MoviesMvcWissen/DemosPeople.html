@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>People | jQuery AJAX</title>
+    <script src="Scripts/jquery-3.0.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.getJSON("./Demos/GetPeopleJson", function (response) {
+                $.each(response, function (i, data) {
+                    $("#ul_people").append("<li>Id: " + data.Id + " - Full Name: " + data.FullName + " - Identity No: " + data.IdentityNo + " - University Graduate: " + (data.GraduatedFromUniversity == true ? "Yes" : "No") + " - Birth Date: " + data.BirthDate + "</li>");
+                });
+            });
+
+            $("#bRefresh").click(function () {
+                clearPeople();
+                $.ajax({
+                    url: "./Demos/GetPeopleJson",
+                    type: "get",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    cache: false,
+                    success: function (response, response_textstatus, response_jqxhr) {
+                        //console.log("TextStatus: " + response_textstatus + " - jqXHR: " + response_jqxhr.status);
+                        var html = '<ul id="ul_people">';
+                        for (var i = 0; i < response.length; i++) {
+                            html += "<li>Id: " + response[i].Id + " - Full Name: " + response[i].FullName + " - Identity No: " + response[i].IdentityNo + " - University Graduate: " + (response[i].GraduatedFromUniversity == true ? "Yes" : "No") + " - Birth Date: " + response[i].BirthDate + "</li>";
+                        }
+                        html += "</ul>";
+                        $("#div_people").html(html);
+                    },
+                    error: function (response_textstatus, response_jqxhr) {
+                        alert("An error occured!");
+                        console.log("TextStatus: " + response_textstatus + " - jqXHR: " + response_jqxhr.status);
+                    }
+                });
+            });
+        });
+
+        function clearPeople() {
+            $("#div_people").empty();
+        }
+    </script>
+</head>
+<body>
+    <h2>People</h2>
+    <div id="div_people">
+        <ul id="ul_people">
+
+        </ul>
+    </div>
+    <button id="bRefresh">Refresh</button>
+    &nbsp;
+    <button id="bClear" onclick="clearPeople();">Clear</button>
+</body>
+</html>
