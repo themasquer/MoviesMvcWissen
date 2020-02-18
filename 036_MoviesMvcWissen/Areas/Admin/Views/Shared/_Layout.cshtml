@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies MVC Admin | @ViewBag.Title</title>
+    @*<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+                <a class="navbar-brand" href="@Url.Action("Index", "Home", new { area = "Admin" })">Movies MVC Admin</a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+
+                            @Html.ActionLink("Users", "Index", "Home", new { area = "Admin" }, new { @class = "nav-link" })
+
+                        </li>
+
+                        <li class="nav-item">
+
+                            @Html.ActionLink("Movies MVC", "Index", "Home", new { area = "" }, new { @class = "nav-link" })
+
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="body">
+            @RenderBody()
+        </div>
+        <div class="footer">
+
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -25,11 +25,15 @@
             context.Database.ExecuteSqlCommand("delete from Reviews");
             context.Database.ExecuteSqlCommand("delete from Movies");
             context.Database.ExecuteSqlCommand("delete from Directors");
+            context.Database.ExecuteSqlCommand("delete from Roles");
+            context.Database.ExecuteSqlCommand("delete from Users");
 
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('MovieDirectors', RESEED, 0)");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Reviews', RESEED, 0)");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Movies', RESEED, 0)");
             context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Directors', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Roles', RESEED, 0)");
+            context.Database.ExecuteSqlCommand("DBCC CHECKIDENT ('Users', RESEED, 0)");
 
             List<Movie> movieList = new List<Movie>
             {
@@ -96,6 +100,24 @@
                     director.MovieDirectors.Add(movieDirector);
                 }
             }
+            List<User> userList = new List<User>()
+            {
+                new User() { Id = 1, UserName = "leo", Password = "cagil", Active = true, RoleId = 2 },
+                new User() { Id = 2, UserName = "admin", Password = "admin", Active = true, RoleId = 1 }
+            };
+            List<Role> roleList = new List<Role>()
+            {
+                new Role() { Id = 1, Name = "Admin", Users = new List<User>() },
+                new Role() { Id = 2, Name = "User", Users = new List<User>() },
+            };
+            foreach (var role in roleList)
+            {
+                var users = userList.Where(e => e.RoleId == role.Id).ToList();
+                foreach (var user in users)
+                {
+                    role.Users.Add(user);
+                }
+            }
 
             // context update:
             foreach (Movie movie in movieList)
@@ -123,13 +145,16 @@
                     }
                 );
             }
-            context.Users.AddOrUpdate(e => e.UserName,
-                new User()
-                {
-                    UserName = "leo",
-                    Password = "cagil"
-                }
-            );
+            foreach (var role in roleList)
+            {
+                context.Roles.AddOrUpdate(e => e.Name,
+                    new Role()
+                    {
+                        Name = role.Name,
+                        Users = role.Users
+                    }
+                );
+            }
         }
     }
 }

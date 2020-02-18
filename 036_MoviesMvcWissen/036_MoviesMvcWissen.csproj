@@ -117,6 +117,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="DemosPeople.html" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -431,6 +432,10 @@
     <Content Include="Plugins\bootstrap-datepicker-master\README.md" />
     <Content Include="Plugins\bootstrap-datepicker-master\tests\README.md" />
     <Content Include="Plugins\bootstrap-datepicker-master\yarn.lock" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -443,6 +448,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -519,6 +525,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Contexts\MoviesContext.cs" />
     <Compile Include="Controllers\DemosController.cs" />
     <Compile Include="Controllers\DirectorsController.cs" />
@@ -530,7 +538,10 @@
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\MovieDirector.cs" />
     <Compile Include="Entities\Review.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\vwUser.cs" />
+    <Compile Include="Enums\RoleEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -546,6 +557,22 @@
     <Compile Include="Migrations\202002141401096_MoviesV03.cs" />
     <Compile Include="Migrations\202002141401096_MoviesV03.designer.cs">
       <DependentUpon>202002141401096_MoviesV03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181256486_MoviesV04.cs" />
+    <Compile Include="Migrations\202002181256486_MoviesV04.designer.cs">
+      <DependentUpon>202002181256486_MoviesV04.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181334435_MoviesV05.cs" />
+    <Compile Include="Migrations\202002181334435_MoviesV05.designer.cs">
+      <DependentUpon>202002181334435_MoviesV05.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181435270_MoviesV06.cs" />
+    <Compile Include="Migrations\202002181435270_MoviesV06.designer.cs">
+      <DependentUpon>202002181435270_MoviesV06.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202002181717290_MoviesV07.cs" />
+    <Compile Include="Migrations\202002181717290_MoviesV07.designer.cs">
+      <DependentUpon>202002181717290_MoviesV07.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Demos\Templates\PersonModel.cs" />
@@ -619,6 +646,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002050959369_MoviesV01.resx">
@@ -629,6 +657,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202002141401096_MoviesV03.resx">
       <DependentUpon>202002141401096_MoviesV03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181256486_MoviesV04.resx">
+      <DependentUpon>202002181256486_MoviesV04.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181334435_MoviesV05.resx">
+      <DependentUpon>202002181334435_MoviesV05.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181435270_MoviesV06.resx">
+      <DependentUpon>202002181435270_MoviesV06.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202002181717290_MoviesV07.resx">
+      <DependentUpon>202002181717290_MoviesV07.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

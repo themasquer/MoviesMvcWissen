@@ -21,5 +21,7 @@ namespace _036_MoviesMvcWissen.Contexts
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<MovieDirector> MovieDirectors { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<vwUser> vwUsers { get; set; }
     }
 }
