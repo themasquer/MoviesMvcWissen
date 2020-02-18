@@ -12,7 +12,8 @@ namespace _036_MoviesMvcWissen.Contexts
     {
         public MoviesContext() : base("MoviesContext")
         {
-            
+            //Disable initializer
+            Database.SetInitializer<MoviesContext>(null);
         }
 
         public virtual DbSet<Movie> Movies { get; set; }
