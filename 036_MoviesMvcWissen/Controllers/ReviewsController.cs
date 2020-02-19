@@ -25,14 +25,15 @@ namespace _036_MoviesMvcWissen.Controllers
         }
 
         // GET: Reviews/Details/5
+        [Route("Reviews/Details/{no?}")]
         [AllowAnonymous]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? no)
         {
-            if (id == null)
+            if (no == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Review review = db.Reviews.Find(id);
+            Review review = db.Reviews.Find(no);
             if (review == null)
             {
                 return HttpNotFound();
@@ -41,6 +42,7 @@ namespace _036_MoviesMvcWissen.Controllers
         }
 
         // GET: Reviews/Create
+        [Route("CreateReview")]
         public ActionResult Create()
         {
             ViewBag.MovieId = new SelectList(db.Movies, "Id", "Name");
