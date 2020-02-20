@@ -1,0 +1,67 @@
+﻿@model _036_MoviesMvcWissen.Models.ViewModels.ReportsMoviesViewModel
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().MovieName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().MovieProductionYear)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().MovieBoxOfficeReturn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().DirectorFullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().DirectorRetired)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().ReviewContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().ReviewRating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MovieReports.FirstOrDefault().ReviewReviewer)
+        </th>
+    </tr>
+
+    @foreach (var item in Model.MovieReports)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink("Movie Details", "Details", "Movies", new { id = item.MovieId }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieProductionYear)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MovieBoxOfficeReturn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DirectorFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DirectorRetired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewRating)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReviewReviewer)
+            </td>
+        </tr>
+    }
+
+</table>

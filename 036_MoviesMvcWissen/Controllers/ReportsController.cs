@@ -17,6 +17,18 @@ namespace _036_MoviesMvcWissen.Controllers
 
         public ActionResult Movies(ReportsMoviesViewModel reportsMoviesViewModel)
         {
+            GetModel(reportsMoviesViewModel);
+            return View(reportsMoviesViewModel);
+        }
+
+        public ActionResult MoviesAjax(ReportsMoviesViewModel reportsMoviesViewModel)
+        {
+            GetModel(reportsMoviesViewModel);
+            return PartialView("_Movies", reportsMoviesViewModel);
+        }
+
+        private void GetModel(ReportsMoviesViewModel reportsMoviesViewModel)
+        {
             var movieQuery = db.Movies.AsQueryable();
             var directorQuery = db.Directors.AsQueryable();
             var movieDirectorQuery = db.MovieDirectors.AsQueryable();
@@ -43,7 +55,7 @@ namespace _036_MoviesMvcWissen.Controllers
             //            };
             // left outer join:
             var query = from m in movieQuery
-                        join md in movieDirectorQuery 
+                        join md in movieDirectorQuery
                         on m.Id equals md.MovieId into movie_moviedirector
                         from sub_movie_moviedirector in movie_moviedirector.DefaultIfEmpty()
                         join d in directorQuery
@@ -82,7 +94,19 @@ namespace _036_MoviesMvcWissen.Controllers
             }).ToList();
             reportsMoviesViewModel.MovieReports = list;
             reportsMoviesViewModel.RecordCount = recordCount;
-            return View(reportsMoviesViewModel);
+            int numberOfPages = Convert.ToInt32(Math.Ceiling((decimal)reportsMoviesViewModel.RecordCount / (decimal)reportsMoviesViewModel.RecordsPerPageCount));
+            List<SelectListItem> pageList = new List<SelectListItem>();
+            SelectListItem pageItem;
+            for (int i = 1; i <= numberOfPages; i++)
+            {
+                pageItem = new SelectListItem()
+                {
+                    Value = i.ToString(),
+                    Text = i.ToString()
+                };
+                pageList.Add(pageItem);
+            }
+            reportsMoviesViewModel.PageNumbers = new SelectList(pageList, "Value", "Text", reportsMoviesViewModel.PageNumber);
         }
     }
 }

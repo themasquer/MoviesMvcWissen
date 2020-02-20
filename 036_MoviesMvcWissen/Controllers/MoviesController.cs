@@ -4,9 +4,11 @@ using _036_MoviesMvcWissen.Models;
 using _036_MoviesMvcWissen.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -163,14 +165,36 @@ namespace _036_MoviesMvcWissen.Controllers
         }
 
         [HttpPost]
-        public RedirectToRouteResult Add(string Name, int ProductionYear, string BoxOfficeReturn, List<int> Directors)
+        public RedirectToRouteResult Add(string Name, int ProductionYear, string BoxOfficeReturn, List<int> Directors, HttpPostedFileBase Image)
         {
+            string filePath = null;
+            if (Image != null && Image.ContentLength > 0)
+            {
+                var fileName = DateTime.Now.Year + DateTime.Now.Month.ToString().PadLeft(2, '0') + DateTime.Now.Day.ToString().PadLeft(2, '0') + DateTime.Now.Hour.ToString().PadLeft(2, '0') +
+                  DateTime.Now.Minute.ToString().PadLeft(2, '0') +
+                  DateTime.Now.Second.ToString().PadLeft(2, '0') +
+                  DateTime.Now.Millisecond.ToString().PadLeft(3, '0') +
+                  "_" + Name.Replace(" ", "") + Path.GetExtension(Image.FileName);
+                if (Path.GetExtension(fileName).ToLower().Equals(".jpg") || Path.GetExtension(fileName).ToLower().Equals(".jpeg") ||
+                    Path.GetExtension(fileName).ToLower().Equals(".png") ||
+                    Path.GetExtension(fileName).ToLower().Equals(".bmp"))
+                {
+                    var filesFolder = Server.MapPath("~/" + ConfigurationManager.AppSettings["FilesFolder"]);
+                    if (!Directory.Exists(filesFolder))
+                        Directory.CreateDirectory(filesFolder);
+                    var moviesFolder = filesFolder + @"\Movies";
+                    if (!Directory.Exists(moviesFolder))
+                        Directory.CreateDirectory(moviesFolder);
+                    filePath = ConfigurationManager.AppSettings["FilesFolder"] + "/Movies/" + fileName;
+                }
+            }
             var entity = new Movie()
             {
                 Id = 0,
                 Name = Name,
                 ProductionYear = ProductionYear.ToString(),
-                BoxOfficeReturn = Convert.ToDouble(BoxOfficeReturn.Replace(",", "."), CultureInfo.InvariantCulture)
+                BoxOfficeReturn = Convert.ToDouble(BoxOfficeReturn.Replace(",", "."), CultureInfo.InvariantCulture),
+                FilePath = filePath
             };
             entity.MovieDirectors = Directors.Select(e => new MovieDirector()
             {
@@ -179,6 +203,10 @@ namespace _036_MoviesMvcWissen.Controllers
             }).ToList();
             db.Movies.Add(entity);
             db.SaveChanges();
+            if (filePath != null)
+            {
+                Image.SaveAs(Server.MapPath("~/" + filePath));
+            }
             Debug.WriteLine("Added Entity Id: " + entity.Id);
             TempData["Info"] = "Record successfully added to database.";
             return RedirectToAction("Index");

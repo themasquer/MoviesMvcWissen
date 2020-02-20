@@ -22,5 +22,6 @@ namespace _036_MoviesMvcWissen.Entities
         public double? BoxOfficeReturn { get; set; }
         public virtual List<MovieDirector> MovieDirectors { get; set; }
         public virtual List<Review> Reviews { get; set; }
+        public string FilePath { get; set; }
     }
 }
