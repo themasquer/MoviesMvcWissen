@@ -17,7 +17,7 @@
 @{
     Html.EndForm();
 }*@
-@using (Html.BeginForm("Edit", "Movies", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Movies", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @*<input type="hidden" name="Id" value="@Model.Id" />*@
     @Html.Hidden("Id", Model.Id)
@@ -37,6 +37,12 @@
     <div class="form-group">
         @Html.Label("ddlDirectors", "Directors:")
         @Html.ListBox("directorIds", directors, new { @class = "form-control", id = "ddlDirectors" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("fuImage", "Image:")
+        <br />
+        <input type="file" name="Image" accept="image/*" id="fuImage" />
     </div>
 
     @*<input type="submit" class="btn btn-success" value="Save" />*@
