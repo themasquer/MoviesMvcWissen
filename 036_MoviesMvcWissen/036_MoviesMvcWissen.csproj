@@ -62,6 +62,9 @@
       <HintPath>..\packages\FluentValidation.ValidatorAttribute.8.6.0\lib\net45\FluentValidation.ValidatorAttribute.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Ninject, Version=3.3.4.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.3.4\lib\net45\Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Annotations, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Annotations.4.4.1\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
@@ -534,6 +537,7 @@
     <Compile Include="Controllers\DemosController.cs" />
     <Compile Include="Controllers\DirectorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogDemoController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
@@ -550,6 +554,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ButtonHtmlHelpers.cs" />
+    <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Migrations\202002050959369_MoviesV01.cs" />
     <Compile Include="Migrations\202002050959369_MoviesV01.designer.cs">
       <DependentUpon>202002050959369_MoviesV01.cs</DependentUpon>
@@ -586,6 +591,8 @@
     <Compile Include="Models\Demos\Templates\PersonModel.cs" />
     <Compile Include="Models\Demos\Ajax\PersonModelClientModel.cs" />
     <Compile Include="Models\DirectorModel.cs" />
+    <Compile Include="Models\LogDemo\ILogger.cs" />
+    <Compile Include="Models\LogDemo\Loggers.cs" />
     <Compile Include="Models\MovieReportModel.cs" />
     <Compile Include="Models\ViewModels\DemosGetPeopleAjaxViewModel.cs" />
     <Compile Include="Models\ViewModels\DirectorsEditViewModel.cs" />
@@ -660,6 +667,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Files\Movies\" />
+    <Folder Include="Views\LogDemo\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202002050959369_MoviesV01.resx">

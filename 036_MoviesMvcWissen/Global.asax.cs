@@ -1,3 +1,4 @@
+using _036_MoviesMvcWissen.Infrastructure;
 using FluentValidation.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace _036_MoviesMvcWissen
 
             ModelValidatorProviders.Providers.Clear();
             ModelValidatorProviders.Providers.Add(new FluentValidationModelValidatorProvider() { AddImplicitRequiredValidator = false });
+
+            ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
         }
     }
 }
