@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace _036_MoviesMvcWissen.Controllers
 {
-    public class LogDemoController : Controller
+    public class LogIoCcontainerController : Controller
     {
         private ILogger _logger;
 
-        public LogDemoController(ILogger logger)
+        public LogIoCcontainerController(ILogger logger)
         {
             _logger = logger;
         }

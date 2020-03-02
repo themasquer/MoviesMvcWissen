@@ -537,7 +537,7 @@
     <Compile Include="Controllers\DemosController.cs" />
     <Compile Include="Controllers\DirectorsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LogDemoController.cs" />
+    <Compile Include="Controllers\LogIoCcontainerController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
     <Compile Include="Controllers\ReportsController.cs" />
